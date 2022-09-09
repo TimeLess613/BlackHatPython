@@ -8,9 +8,12 @@ def sendto(host="127.0.0.1", port=9997):
     client.sendto(b"AAAA", (host, port))
 
     # receive data
-    data, addr = client.recvfrom(4096)
+    # data, addr = client.recvfrom(4096)
+    # print(data.decode(), addr)
 
-    print(response.decode())
+    data_addr = client.recvfrom(4096)
+    print(data_addr)
+
     client.close()
 
 if __name__ == '__main__':
