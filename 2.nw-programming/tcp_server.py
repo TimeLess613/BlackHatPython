@@ -28,7 +28,7 @@ def handle_client(client_socket):
         request = sock.recv(1024)
 
         # print out what the client sends
-        print(f"[*] Received: {request}")
+        print(f"[*] Received: {request.decode('utf-8')}")
         # send back a packet
         sock.send(b'ACK')
 
