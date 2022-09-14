@@ -1,26 +1,27 @@
 import socket
 
-def sendto(host="127.0.0.1", port=9997):
+def udp_client(host, port):
     # object. datagram socket(SOCK_DGRAM)
-    client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     # sent data
-    client.sendto(b"AAAA", (host, port))
-
+    s.sendto(b"AAAA", (host, port))
     # receive data
-    # data, addr = client.recvfrom(4096)
-    # print(data.decode(), addr)
+    data, addr = s.recvfrom(1024)
+    print(f'[*] Message from {addr[0]}:{addr[1]} :', data.decode())
+    
+    ## 或者不表示回信地址
+    s.sendto(b"BBBB", (host, port))
+    data = s.recv(1024)
+    print(f'[*] Message:', data.decode())
 
-    data_addr = client.recvfrom(4096)
-    print(data_addr)
-
-    client.close()
+    s.close()
 
 if __name__ == '__main__':
-    # target_host = "127.0.0.1"
-    target_host = "10.10.10.28"
-    target_port = 4444
-    sendto(target_host, target_port)
+    host = "127.0.0.1"
+    # host = "10.10.10.28"
+    port = 4444
+    udp_client(host, port)
 
 
 ####### 踩坑 ########

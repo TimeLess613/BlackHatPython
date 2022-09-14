@@ -1,13 +1,18 @@
-# 网上搜的简单UDP服务端。待优化
 import socket
 
-addr = ('127.0.0.1', 4444)
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(addr)
+def udp_server(ip, port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((bind_ip, bind_port))
+    print(f"[*] Listening on {bind_ip}:{bind_port}")
 
-while True:
-    print("listen")
-    data, addr = s.recvfrom(4096)
-    print(data, addr)
+    while True:
+        data, addr = s.recvfrom(1024)
+        print(f'[*] Message from {addr[0]}:{addr[1]} : ', data.decode())
+        s.sendto(f'Hello, {addr}'.encode(), addr)
+    s.close()
 
-s.close()
+
+if __name__ == '__main__':
+    bind_ip = "127.0.0.1"
+    bind_port = 4444
+    udp_server(bind_ip, bind_port)
