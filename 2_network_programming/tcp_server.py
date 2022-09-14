@@ -5,13 +5,13 @@ import time
 def tcp_server(ip, port):
     # socket object with IPv4 and TCP
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # listener，max connection 5.
+    # listener， max connection 5.
     s.bind((bind_ip, bind_port))    
     s.listen(5)
     print(f"[*] Listening on {bind_ip}:{bind_port}")
 
     while True:
-        # wait for connection, save the object client to var client
+        # listener，wait for connection, save the object client to var client
         ## accept()会等待并返回一个客户端的连接（tuple）
         client, addr = s.accept()
 
