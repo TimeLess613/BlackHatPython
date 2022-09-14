@@ -17,6 +17,7 @@ def connect(host, port):
     ## 全接收需要while循环
     ## 但似乎HTTP/1.1默认"Connection:Keep-Alive"，
     ## 如果报头不加"Connection: close"，则下面的while循环不会立马结束。
+    ## buffer接收每一个包，最后拼接到data。
     buffer = []
     i = 0
     while True:
@@ -37,6 +38,8 @@ def connect(host, port):
 
 
 def save_html(data):
+    # string.split(separator, maxsplit)
+    ## 因为header是以'\r\n\r\n'结尾。
     header, html = data.split(b'\r\n\r\n', 1)
     print(header.decode('utf-8'))
     with open('google.html', 'wb') as f:
