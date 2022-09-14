@@ -17,6 +17,8 @@ def tcp_server(ip, port):
 
         # creat new thread, handle_client().
         # spin up our client thread to handle/receive incoming data
+        ## 之前的socket对象是第一个socket，
+        ## 下面这里是复制之前的对象新建的socket来处理连接（大概）
         t = threading.Thread(target=handle_client, args=(client, addr))
         t.start()
 
