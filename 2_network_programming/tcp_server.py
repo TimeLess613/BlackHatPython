@@ -11,14 +11,15 @@ def tcp_server(ip, port):
     print(f"[*] Listening on {bind_ip}:{bind_port}")
 
     while True:
-        # listener，wait for connection, save the object client to var client
-        ## accept()会等待并返回一个客户端的连接（tuple）
+        # listener，wait for connection,
+        # when accept connection, save the socket object to a var client
+        ## accept()会等待并返回一个客户端的连接（tuple）,将其放入新的线程。
+        ## 之前的socket对象是第一个socket，
+        ## 下面这里是复制之前的对象到新建的线程来处理连接。
         client, addr = s.accept()
 
         # creat new thread, handle_client().
         # spin up our client thread to handle/receive incoming data
-        ## 之前的socket对象是第一个socket，
-        ## 下面这里是复制之前的对象新建的socket来处理连接（大概）
         t = threading.Thread(target=handle_client, args=(client, addr))
         t.start()
 
