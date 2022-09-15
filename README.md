@@ -1,4 +1,2 @@
 # BlackHatPython
 practices
-
-test
